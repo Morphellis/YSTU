@@ -2,7 +2,7 @@ import { Store } from './store.js';
 import { UI } from './ui.js';
 
 const App = {
-    yMap: null, // Объект карты Яндекса
+    yMap: null,
 
     init() {
         this.bindEvents();
@@ -17,22 +17,19 @@ const App = {
         const container = document.getElementById('map-container');
         if (!container) return;
 
-        // Ждем, пока API Яндекса загрузится
         ymaps.ready(() => {
-            // Если карта уже создана, не пересоздаем
-            if (this.yMap) {
-                this.yMap.destroy(); 
-            }
+            if (this.yMap) this.yMap.destroy();
 
             this.yMap = new ymaps.Map("map-container", {
-                center: [57.587433, 39.856204], // Центр ЯГТУ
+                center: [57.587433, 39.856204],
                 zoom: 15,
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
-            // Добавляем маркеры для всех карточек
+            const myCollection = new ymaps.GeoObjectCollection();
+
             document.querySelectorAll('.search-item').forEach(item => {
-                const { lat, lng, id } = item.dataset;
+                const { lat, lng } = item.dataset;
                 if (lat && lng) {
                     const placemark = new ymaps.Placemark([lat, lng], {
                         balloonContent: `<b>${item.querySelector('b').innerText}</b>`
@@ -40,23 +37,38 @@ const App = {
                         preset: 'islands#orangeDotIcon'
                     });
 
-                    this.yMap.geoObjects.add(placemark);
+                    myCollection.add(placemark);
 
-                    // Клик по карточке в списке
                     item.onclick = () => {
-                        this.yMap.setCenter([lat, lng], 18, {
+                        // 1. Скроллим страницу наверх к карте
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+
+                        // 2. Центрируем карту на корпусе
+                        this.yMap.setCenter([lat, lng], 17, {
                             checkZoomRange: true,
-                            duration: 500 // Плавный полет
+                            duration: 500
                         });
                         placemark.balloon.open();
                     };
                 }
             });
+
+            this.yMap.geoObjects.add(myCollection);
+
+            // Автоматически показываем ВСЕ маркеры при загрузке
+            if (myCollection.getLength() > 0) {
+                this.yMap.setBounds(myCollection.getBounds(), {
+                    checkZoomRange: true,
+                    zoomMargin: 40
+                });
+            }
         });
     },
 
     bindEvents() {
-        // Навигация
         document.getElementById('main-nav').addEventListener('click', (e) => {
             const btn = e.target.closest('.nav-item');
             if (btn) {
@@ -64,15 +76,10 @@ const App = {
                 btn.classList.add('active');
                 const page = btn.dataset.page;
                 UI.renderPage(page);
-                
-                if (page === 'map') {
-                    // Даем 200мс, чтобы HTML отрисовался, прежде чем вставлять карту
-                    setTimeout(() => this.initMap(), 200);
-                }
+                if (page === 'map') setTimeout(() => this.initMap(), 200);
             }
         });
 
-        // Кнопка старта
         const startBtn = document.getElementById('start-btn');
         if (startBtn) {
             startBtn.onclick = () => {
@@ -81,7 +88,6 @@ const App = {
             };
         }
 
-        // Чекбоксы (делегирование)
         document.getElementById('content').addEventListener('change', (e) => {
             if (e.target.classList.contains('task-checkbox')) {
                 const isChecked = e.target.checked;
@@ -92,7 +98,6 @@ const App = {
             }
         });
 
-        // Поиск (делегирование)
         document.getElementById('content').addEventListener('input', (e) => {
             if (e.target.id === 'buildSearch') {
                 const query = e.target.value.toLowerCase();
