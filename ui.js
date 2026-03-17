@@ -35,6 +35,12 @@ export const UI = {
             <div class="card" style="background: var(--accent); color: white;">
                 <b>Важное:</b> Студенческие билеты в Г-437.
             </div>
+            ${Store.state.achievements.length > 0 ? `
+            <div class="card">
+                <h3>🏆 Достижения</h3>
+                ${Store.state.achievements.map(ach => `<div class="achievement">🎉 ${ach}</div>`).join('')}
+            </div>
+            ` : ''}
         `,
         tasks: () => `
             <h2>Твой первый день</h2>
@@ -48,15 +54,15 @@ export const UI = {
                     <div class="task-info"><b>Подключиться к Wi-Fi ЯГТУ</b></div>
                 </div>
                 <div class="task-row">
-                    <input type="checkbox" id="task_office" class="task-checkbox" data-xp="100">
+                    <input type="checkbox" id="task_ticket" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Получить зачетку и студенческий билет в дирекции института (Г-437)</b></div>
                 </div>
                 <div class="task-row">
-                    <input type="checkbox" id="task_office" class="task-checkbox" data-xp="100">
+                    <input type="checkbox" id="task_food" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Посетить столовую</b></div>
                 </div>
                 <div class="task-row">
-                    <input type="checkbox" id="task_office" class="task-checkbox" data-xp="100">
+                    <input type="checkbox" id="task_card" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Получить пропуск-карту</b></div>
                 </div>
             </div>

@@ -68,6 +68,19 @@ const App = {
         });
     },
 
+    showAchievementPopup(message) {
+        const popup = document.getElementById('achievement-popup');
+        const msgEl = document.getElementById('popup-message');
+        msgEl.textContent = message;
+        popup.classList.add('show');
+
+        // Автоматически скрываем через 10 секунд с анимацией
+        setTimeout(() => {
+            popup.classList.add('hide');
+            setTimeout(() => popup.classList.remove('show', 'hide'), 500);
+        }, 10000);
+    },
+
     bindEvents() {
         document.getElementById('main-nav').addEventListener('click', (e) => {
             const btn = e.target.closest('.nav-item');
@@ -95,6 +108,12 @@ const App = {
                 Store.toggleTask(e.target.id, isChecked);
                 Store.updateXP(isChecked ? xp : -xp);
                 UI.updateHeader();
+
+                // Проверка на достижение
+                if (Store.getOverallProgress() === 100 && !Store.state.achievements.includes('Первый день')) {
+                    Store.addAchievement('Первый день');
+                    this.showAchievementPopup('Вы получили достижение "Первый день"!');
+                }
             }
         });
 
