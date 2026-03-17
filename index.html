@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YGTU START | Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" type="module"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    <div id="welcome" class="screen-overlay">
+        <h1>🎓 YGTU START</h1>
+        <button id="start-btn" class="btn-primary">Погнали!</button>
+    </div>
+
+    <header>
+        <div class="header-top">
+            <b id="page-title">Главная</b>
+            <div class="xp-badge">XP: <span id="xp-val">0</span></div>
+        </div>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+    </header>
+
+    <main id="content"></main> <nav id="main-nav">
+        <button data-page="home" class="nav-item active"><span>🏠</span>Дом</button>
+        <button data-page="tasks" class="nav-item"><span>✅</span>Квесты</button>
+        <button data-page="hostel" class="nav-item"><span>🏢</span>Общага</button>
+        <button data-page="map" class="nav-item"><span>📍</span>Карта</button>
+    </nav>
+</body>
+</html>
