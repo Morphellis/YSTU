@@ -38,6 +38,17 @@ body {
     border: 1px solid rgba(0,0,0,0.05);
 }
 
+.search-item {
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    background: rgba(255, 140, 0, 0.05);
+}
+
 .btn-primary {
     background: var(--accent);
     color: white;

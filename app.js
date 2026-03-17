@@ -74,11 +74,11 @@ const App = {
         msgEl.textContent = message;
         popup.classList.add('show');
 
-        // Автоматически скрываем через 10 секунд с анимацией
+        // Автоматически скрываем через 3 секунды с анимацией
         setTimeout(() => {
             popup.classList.add('hide');
             setTimeout(() => popup.classList.remove('show', 'hide'), 500);
-        }, 10000);
+        }, 3000);
     },
 
     bindEvents() {
