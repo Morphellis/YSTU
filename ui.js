@@ -24,17 +24,6 @@ export const UI = {
             if (Store.state.tasks[cb.id]) cb.checked = true;
         });
         this.updateHeader();
-
-        // Показываем XP только на странице tasks
-        const xpBadge = document.querySelector('.xp-badge');
-        const progressContainer = document.querySelector('.progress-container');
-        if (pageId === 'tasks') {
-            xpBadge.style.display = 'block';
-            progressContainer.style.display = 'block';
-        } else {
-            xpBadge.style.display = 'none';
-            progressContainer.style.display = 'none';
-        }
     },
 
     templates: {
@@ -44,7 +33,7 @@ export const UI = {
                 <p>Ты в кампусе ЯГТУ. Начни с прохождения чек-листа.</p>
             </div>
             <div class="card" style="background: var(--accent); color: white;">
-                <b>Важное:</b> Студенческие билеты в Г-437.
+                <b>Важное:</b> Дирекция (Г-437) — здесь оформляют студенческие билеты и зачетки; приходите сюда для всех формальностей.
             </div>
             ${Store.state.achievements.length > 0 ? `
             <div class="card">
@@ -52,41 +41,33 @@ export const UI = {
                 ${Store.state.achievements.map(ach => `<div class="achievement">🎉 ${ach}</div>`).join('')}
             </div>
             ` : ''}
-            <div class="card">
-                <h3>📅 Расписание</h3>
-                <div class="schedule-item">
-                    <strong>Г-104:</strong> 9:00-17:00, 13-14 обед
-                </div>
-                <div class="schedule-item">
-                    <strong>Буфет:</strong> с 9 до 16:30
-                </div>
-                <div class="schedule-item">
-                    <strong>Г-437:</strong> с 9:00 до 15:00
-                </div>
-            </div>
         `,
         tasks: () => `
             <h2>Твой первый день</h2>
             <div class="card">
+                <h3>Цель чек-листа</h3>
+                <p>Быстро оформить ключевые документы, получить доступ к кампусу и базово сориентироваться (где дирекция, столовая и пр.).</p>
+            </div>
+            <div class="card">
                 <div class="task-row">
                     <input type="checkbox" id="task_office" class="task-checkbox" data-xp="100">
-                    <div class="task-info"><b>Найти студенческий офис - Г-104 (Слева от турникетов на входе в Г)</b></div>
-                </div>
-                <div class="task-row">
-                    <input type="checkbox" id="task_wifi" class="task-checkbox" data-xp="100">
-                    <div class="task-info"><b>Подключиться к Wi-Fi ЯГТУ</b></div>
+                    <div class="task-info"><b>1) Найти студенческий офис — Г-104</b><br><small>Чтобы оформить необходимые документы и справки</small></div>
                 </div>
                 <div class="task-row">
                     <input type="checkbox" id="task_ticket" class="task-checkbox" data-xp="100">
-                    <div class="task-info"><b>Получить зачетку и студенческий билет в дирекции института (Г-437)</b></div>
-                </div>
-                <div class="task-row">
-                    <input type="checkbox" id="task_food" class="task-checkbox" data-xp="100">
-                    <div class="task-info"><b>Посетить столовую</b></div>
+                    <div class="task-info"><b>2) Оформить зачетку и студенческий билет — Дирекция, Г-437</b><br><small>Без этого нельзя посещать экзамены и пользоваться рядом студенческих сервисов.</small></div>
                 </div>
                 <div class="task-row">
                     <input type="checkbox" id="task_card" class="task-checkbox" data-xp="100">
-                    <div class="task-info"><b>Получить пропуск-карту</b></div>
+                    <div class="task-info"><b>3) Получить пропуск-карту</b><br><small>Карта - доступ в корпуса и общежитие, библиотеку и пр.</small></div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" id="task_wifi" class="task-checkbox" data-xp="100">
+                    <div class="task-info"><b>4) Подключиться к Wi‑Fi ЯГТУ</b><br><small>Чтобы иметь доступ к расписанию и в целом бесплатный вай фай это круто.</small></div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" id="task_food" class="task-checkbox" data-xp="100">
+                    <div class="task-info"><b>5) Посетить столовую</b><br><small>Перекусить и узнать цену еды.</small></div>
                 </div>
             </div>
         `,
@@ -122,25 +103,25 @@ export const UI = {
             <div id="map-container" style="height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; border: 1px solid #ddd;"></div>
             <div id="buildList">
                 <div class="card search-item" data-id="A" data-lat="57.588238" data-lng="39.856509" data-search="а приемная комиссия">
-                    <b>Корпус А</b><br><small>Московский пр-т, 84</small>
+                    <b>Корпус А</b><br><small>Московский пр-т, 84</small><p hidden>Учебный корпус, в котором находится приемная комиссия, ряд аудиторий и точка кипения, в которой проходят различные мероприятия.</p>
                 </div>
                 <div class="card search-item" data-id="G" data-lat="57.586453" data-lng="39.855394" data-search="г главный ит">
-                    <b>Корпус Г</b><br><small>Московский пр-т, 88</small>
+                    <b>Корпус Г</b><br><small>Московский пр-т, 88</small><p hidden>Один из центральных учебных корпусов кампуса. Здесь расположены дирекция и деканаты, ряд аудиторий и кабинетов преподавателей. В частности, кабинет <b>Г-437</b> — дирекция, где оформляют студенческие билеты и зачетки; <b>Г-104</b> — студенческий офис у входа.</p>
                 </div>
                 <div class="card search-item" data-id="B" data-lat="57.587011" data-lng="39.854389" data-search="б химия">
-                    <b>Корпус Б</b><br><small>Московский пр-т, 88А</small>
+                    <b>Корпус Б</b><br><small>Московский пр-т, 88А</small><p hidden>Учебный корпус, в котором находится кафедра математики.</p>
                 </div>
                 <div class="card search-item" data-id="V" data-lat="57.584278" data-lng="39.862322" data-search="в строительство">
-                    <b>Корпус В</b><br><small>ул. Кривова, 40</small>
+                    <b>Корпус В</b><br><small>ул. Кривова, 40</small><p hidden>Учебный корпус для строителей, находится за пределами основного кампуса.</p>
                 </div>
                 <div class="card search-item" data-id="E" data-lat="57.588380" data-lng="39.854393" data-search="е химия">
-                    <b>Корпус Е</b><br><small>Московский пр-т, 84</small>
+                    <b>Корпус Е</b><br><small>Московский пр-т, 84</small><p hidden>Учебный корпус, в котором находится кафедра химии и лаборатории.</p>
                 </div>
                 <div class="card search-item" data-id="S" data-lat="57.589720" data-lng="39.852864" data-search="спортзал">
-                    <b>Спортивный корпус</b><br><small>ул. Гагарина, 7</small>
+                    <b>Спортивный корпус</b><br><small>ул. Гагарина, 7</small><p hidden>Корпус для проведения занятий по физической культуре.</p>
                 </div>
                 <div class="card search-item" data-id="FOOD" data-lat="57.588572" data-lng="39.851233" data-search="еда столовая">
-                    <b>Студстоловая</b><br><small>ул. Гагарина, 9</small>
+                    <b>Студстоловая</b><br><small>ул. Гагарина, 9</small><p hidden>Вкусная еда для студентов.</p>
                 </div>
             </div>
         `

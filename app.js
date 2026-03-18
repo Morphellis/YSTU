@@ -32,7 +32,7 @@ const App = {
                 const { lat, lng } = item.dataset;
                 if (lat && lng) {
                     const placemark = new ymaps.Placemark([lat, lng], {
-                        balloonContent: `<b>${item.querySelector('b').innerText}</b>`
+                        balloonContent: `<div><b>${item.querySelector('b').innerText}</b><br>${item.querySelector('p').innerText}</div>`
                     }, {
                         preset: 'islands#orangeDotIcon'
                     });
@@ -51,8 +51,7 @@ const App = {
                             checkZoomRange: true,
                             duration: 500
                         });
-                        // Ждем завершения анимации и открываем балун
-                        setTimeout(() => placemark.balloon.open(), 600);
+                        placemark.balloon.open();
                     };
                 }
             });
@@ -71,19 +70,14 @@ const App = {
 
     showAchievementPopup(message) {
         const popup = document.getElementById('achievement-popup');
-        const overlay = document.getElementById('popup-overlay');
         const msgEl = document.getElementById('popup-message');
         msgEl.textContent = message;
-        overlay.classList.add('show');
         popup.classList.add('show');
 
         // Автоматически скрываем через 3 секунды с анимацией
         setTimeout(() => {
             popup.classList.add('hide');
-            setTimeout(() => {
-                popup.classList.remove('show', 'hide');
-                overlay.classList.remove('show');
-            }, 500);
+            setTimeout(() => popup.classList.remove('show', 'hide'), 500);
         }, 3000);
     },
 
@@ -106,16 +100,6 @@ const App = {
                 document.getElementById('welcome').style.display = 'none';
             };
         }
-
-        document.getElementById('close-popup').addEventListener('click', () => {
-            const popup = document.getElementById('achievement-popup');
-            const overlay = document.getElementById('popup-overlay');
-            popup.classList.add('hide');
-            setTimeout(() => {
-                popup.classList.remove('show', 'hide');
-                overlay.classList.remove('show');
-            }, 500);
-        });
 
         document.getElementById('content').addEventListener('change', (e) => {
             if (e.target.classList.contains('task-checkbox')) {
