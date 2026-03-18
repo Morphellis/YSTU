@@ -24,6 +24,17 @@ export const UI = {
             if (Store.state.tasks[cb.id]) cb.checked = true;
         });
         this.updateHeader();
+
+        // Показываем XP только на странице tasks
+        const xpBadge = document.querySelector('.xp-badge');
+        const progressContainer = document.querySelector('.progress-container');
+        if (pageId === 'tasks') {
+            xpBadge.style.display = 'block';
+            progressContainer.style.display = 'block';
+        } else {
+            xpBadge.style.display = 'none';
+            progressContainer.style.display = 'none';
+        }
     },
 
     templates: {
@@ -41,6 +52,18 @@ export const UI = {
                 ${Store.state.achievements.map(ach => `<div class="achievement">🎉 ${ach}</div>`).join('')}
             </div>
             ` : ''}
+            <div class="card">
+                <h3>📅 Расписание</h3>
+                <div class="schedule-item">
+                    <strong>Г-104:</strong> 9:00-17:00, 13-14 обед
+                </div>
+                <div class="schedule-item">
+                    <strong>Буфет:</strong> с 9 до 16:30
+                </div>
+                <div class="schedule-item">
+                    <strong>Г-437:</strong> с 9:00 до 15:00
+                </div>
+            </div>
         `,
         tasks: () => `
             <h2>Твой первый день</h2>
