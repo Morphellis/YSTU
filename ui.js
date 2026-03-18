@@ -72,26 +72,52 @@ export const UI = {
             </div>
         `,
         hostel: () => `
+        <div class="search-container">
+        <input type="text" class="search-box" id="buildSearch" placeholder="Поиск общаги...">
+    </div>
+    <div id="map-container" style="height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; border: 1px solid #ddd;"></div>
+    <div id="buildList">
+        <div class="card search-item" data-id="H1" data-lat="57.589929" data-lng=" 39.857045" data-search="общага 1">
+            <b>Общежитие №1</b><br>
+            <small>ул. Гагарина, 1А </small>
+            <p hidden>5 этажей, блочного типа. Рядом с корпусом А.</p>
+        </div>
+        <div class="card search-item" data-id="H2" data-lat="57.589666" data-lng=" 39.855038" data-search="общага 2 ">
+            <b>Общежитие №2</b><br>
+            <small>ул. Гагарина, 5</small>
+            <p hidden>5 этажей, блочного типа</p>
+        </div>
+        <div class="card search-item" data-id="H3" data-lat="57.589587" data-lng="39.855716" data-search="общага 3 ">
+            <b>Общежитие №3</b><br>
+            <small>ул. Гагарина, 1</small>
+            <p hidden>5 этажей, рядом со спорт корпусом</p>
+        </div>
+        <div class="card search-item" data-id="H4" data-lat="57.589968" data-lng="39.851136" data-search="общага 5">
+            <b>Общежитие №5</b><br>
+            <small>Гагарина, 11</small>
+            <p hidden>Самое свежее общежитиее 9 этажей, рядом со спорт корпусом</p>
+        </div>
+    </div>
             <h2>Заселение в общагу</h2>
             <div class="card">
                 <div class="task-row">
-                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="0">
+                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Паспорт</b></div>
                 </div>
                 <div class="task-row">
-                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="0">
+                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Две фотографии 3х4</b></div>
                 </div>
                 <div class="task-row">
-                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="0">
+                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Медицинская справка 086-у</b></div>
                 </div>
                 <div class="task-row">
-                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="0">
+                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Справка о флюорографии</b></div>
                 </div>
                 <div class="task-row">
-                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="0">
+                    <input type="checkbox" id="doc_pass" class="task-checkbox" data-xp="100">
                     <div class="task-info"><b>Договор найма</b></div>
                 </div>
             </div>

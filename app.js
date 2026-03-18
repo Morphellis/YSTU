@@ -89,7 +89,7 @@ const App = {
                 btn.classList.add('active');
                 const page = btn.dataset.page;
                 UI.renderPage(page);
-                if (page === 'map') setTimeout(() => this.initMap(), 200);
+                if (page === 'map'  || page === 'hostel') setTimeout(() => this.initMap(), 200);
             }
         });
 
